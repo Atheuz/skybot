@@ -10,7 +10,6 @@ def sieve_suite(bot, input, func, kind, args):
             return None
 
     if kind == "command":
-        print input.trigger
         if input.trigger in bot.config.get('disabled_commands', []):
             return None
         if bot.config.get('enabled_commands_propagate'):
