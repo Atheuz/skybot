@@ -21,6 +21,8 @@ if not os.path.exists('config'):
           },
           "disabled_plugins": [],
           "disabled_commands": [],
+          "enabled_commands": [],
+          "enabled_commands_propagate": 0,
           "acls": {},
           "api_keys": {},
           "censored_strings":
