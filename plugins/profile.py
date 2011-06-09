@@ -1,4 +1,6 @@
-# for crusty old rotor
+"""
+for crusty old rotor
+"""
 
 from util import hook
 
