@@ -1,8 +1,5 @@
-"""
-Runs a given url through the w3c validator
-
-by Vladi
-"""
+# Runs a given url through the w3c validator
+# by Vladi
 
 from util import hook, http
 

@@ -1,6 +1,5 @@
-"""
-searches scene releases using orlydb
-"""
+# searches scene releases using orlydb
+
 
 from util import hook, http
 

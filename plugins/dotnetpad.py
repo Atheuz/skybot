@@ -1,6 +1,4 @@
-"""
-dotnetpad.py: by sklnd, because gobiner wouldn't shut up
-"""
+#dotnetpad.py: by sklnd, because gobiner wouldn't shut up
 
 import urllib
 import httplib

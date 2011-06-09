@@ -1,6 +1,4 @@
-"""
-seen.py: written by sklnd in about two beers July 2009
-"""
+# seen.py: written by sklnd in about two beers July 2009
 
 import time
 

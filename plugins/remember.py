@@ -1,6 +1,4 @@
-"""
-remember.py: written by Scaevolus 2010
-"""
+# remember.py: written by Scaevolus 2010
 
 from util import hook
 

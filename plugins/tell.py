@@ -1,7 +1,5 @@
-"""
-tell.py: written by sklnd in July 2009
-2010.01.25 - modified by Scaevolus
-"""
+# tell.py: written by sklnd in July 2009
+# 2010.01.25 - modified by Scaevolus
 
 import time
 

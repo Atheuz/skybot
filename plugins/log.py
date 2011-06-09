@@ -1,6 +1,4 @@
-"""
-log.py: written by Scaevolus 2009
-"""
+# log.py: written by Scaevolus 2009
 
 import os
 import codecs

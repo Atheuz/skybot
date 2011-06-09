@@ -1,7 +1,5 @@
-"""
-TV information, written by Lurchington 2010
-modified by rmmh 2010
-"""
+# TV information, written by Lurchington 2010
+# modified by rmmh 2010
 
 import datetime
 from urllib2 import URLError

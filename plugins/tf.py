@@ -1,8 +1,6 @@
-"""
-tf.py: written by ipsum
-This skybot plugin retreives the number of items
-a given user has waiting from idling in Team Fortress 2.
-"""
+# tf.py: written by ipsum
+# This skybot plugin retreives the number of items
+# a given user has waiting from idling in Team Fortress 2.
 
 from util import hook, http
 

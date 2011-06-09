@@ -1,7 +1,5 @@
-"""
-Searches Encyclopedia Dramatica and returns the first paragraph of the
-article
-"""
+# Searches Encyclopedia Dramatica and returns the first paragraph of the
+# article
 
 from util import hook, http
 

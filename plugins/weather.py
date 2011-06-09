@@ -1,6 +1,4 @@
-"""
-weather, thanks to google
-"""
+# weather, thanks to google
 
 from util import hook, http
 

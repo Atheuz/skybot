@@ -1,7 +1,5 @@
-"""
-Searches wikipedia and returns first sentence of article
-Scaevolus 2009
-"""
+# Searches wikipedia and returns first sentence of article
+# Scaevolus 2009
 
 import re
 
