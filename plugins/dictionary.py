@@ -6,7 +6,7 @@ from util import hook, http
 @hook.command('u')
 @hook.command
 def urban(inp):
-    '''.u/.urban <phrase> -- looks up <phrase> on urbandictionary.com'''
+    """.u/.urban <phrase> -- looks up <phrase> on urbandictionary.com"""
 
     url = 'http://www.urbandictionary.com/define.php'
     page = http.get_html(url, term=inp)
@@ -29,7 +29,7 @@ def urban(inp):
 @hook.command('dictionary')
 @hook.command
 def define(inp):
-    ".define/.dictionary <word> -- fetches definition of <word>"
+    """.define/.dictionary <word> -- fetches definition of <word>"""
 
     url = 'http://ninjawords.com/'
 
@@ -89,7 +89,7 @@ def define(inp):
 @hook.command('e')
 @hook.command
 def etymology(inp):
-    ".e/.etymology <word> -- Retrieves the etymology of chosen word"
+    """.e/.etymology <word> -- Retrieves the etymology of chosen word"""
 
     url = 'http://www.etymonline.com/index.php'
 

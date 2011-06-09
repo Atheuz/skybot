@@ -5,7 +5,7 @@ from util import hook, http
 
 @hook.command
 def calc(inp):
-    '''.calc <term> -- returns Google Calculator result'''
+    """.calc <term> -- returns Google Calculator result"""
 
     page = http.get('http://www.google.com/search', q=inp)
 

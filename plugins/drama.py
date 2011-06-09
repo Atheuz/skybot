@@ -1,5 +1,7 @@
-'''Searches Encyclopedia Dramatica and returns the first paragraph of the
-article'''
+"""
+Searches Encyclopedia Dramatica and returns the first paragraph of the
+article
+"""
 
 from util import hook, http
 
@@ -10,8 +12,8 @@ ed_url = "http://encyclopediadramatica.ch/"
 @hook.command('ed')
 @hook.command
 def drama(inp):
-    '''.drama <phrase> -- gets first paragraph of Encyclopedia Dramatica ''' \
-    '''article on <phrase>'''
+    """.drama <phrase> -- gets first paragraph of Encyclopedia Dramatica""" \
+    """ article on <phrase>"""
 
     j = http.get_json(api_url, search=inp)
     if not j[1]:

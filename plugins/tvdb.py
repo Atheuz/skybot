@@ -85,7 +85,7 @@ def get_episode_info(episode):
 @hook.command
 @hook.command('tv')
 def tv_next(inp):
-    ".tv_next <series> -- get the next episode of <series>"
+    """.tv_next <series> -- get the next episode of <series>"""
     episodes = get_episodes_for_series(inp)
 
     if episodes["error"]:
@@ -131,7 +131,7 @@ def tv_next(inp):
 @hook.command
 @hook.command('tv_prev')
 def tv_last(inp):
-    ".tv_last <series> -- gets the most recently aired episode of <series>"
+    """.tv_last <series> -- gets the most recently aired episode of <series>"""
     episodes = get_episodes_for_series(inp)
 
     if episodes["error"]:

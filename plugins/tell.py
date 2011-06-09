@@ -1,5 +1,7 @@
-" tell.py: written by sklnd in July 2009"
-"       2010.01.25 - modified by Scaevolus"
+"""
+tell.py: written by sklnd in July 2009
+2010.01.25 - modified by Scaevolus
+"""
 
 import time
 
@@ -7,7 +9,7 @@ from util import hook, timesince
 
 
 def db_init(db):
-    "check to see that our db has the tell table and return a dbection."
+    """check to see that our db has the tell table and return a dbection."""
     db.execute("create table if not exists tell"
                 "(user_to, user_from, message, chan, time,"
                 "primary key(user_to, message))")
@@ -49,7 +51,7 @@ def tellinput(paraml, input=None, db=None, bot=None):
 
 @hook.command(autohelp=False)
 def showtells(inp, nick='', chan='', notice=None, db=None):
-    ".showtells -- view all pending tell messages (sent in PM)."
+    """.showtells -- view all pending tell messages (sent in PM)."""
 
     db_init(db)
 
@@ -71,7 +73,7 @@ def showtells(inp, nick='', chan='', notice=None, db=None):
 
 @hook.command
 def tell(inp, nick='', chan='', db=None):
-    ".tell <nick> <message> -- relay <message> to <nick> when <nick> is around"
+    """.tell <nick> <message> -- relay <message> to <nick> when <nick> is around"""
 
     query = inp.split(' ', 1)
 

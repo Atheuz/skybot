@@ -78,8 +78,8 @@ def get_nicks_by_tag(db, chan, subject):
 
 @hook.command
 def tag(inp, chan='', db=None):
-    '.tag <nick>/[add|del] <nick> <tag>/list [tag] -- get list of tags on ' \
-    '<nick>/(un)marks <nick> as <tag>/gets list of tags/nicks marked as [tag]'
+    """.tag <nick>/[add|del] <nick> <tag>/list [tag] -- get list of tags on """ \
+    """<nick>/(un)marks <nick> as <tag>/gets list of tags/nicks marked as [tag]"""
 
     db.execute('create table if not exists tag(chan, subject, nick)')
 

@@ -28,8 +28,8 @@ def update_commands(force=False):
 @hook.command('o')
 @hook.command
 def oblique(inp, nick='', chan=''):
-    '.o/.oblique <command> <args> -- runs <command> using oblique web'
-    ' services. see http://wiki.github.com/nslater/oblique/'
+    """.o/.oblique <command> <args> -- runs <command> using oblique web """ \
+    """services. see http://wiki.github.com/nslater/oblique/"""
 
     update_commands()
 

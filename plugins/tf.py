@@ -1,7 +1,8 @@
-# tf.py: written by ipsum
-#
-# This skybot plugin retreives the number of items
-# a given user has waiting from idling in Team Fortress 2.
+"""
+tf.py: written by ipsum
+This skybot plugin retreives the number of items
+a given user has waiting from idling in Team Fortress 2.
+"""
 
 from util import hook, http
 
@@ -9,7 +10,7 @@ from util import hook, http
 @hook.command('hats')
 @hook.command
 def tf(inp):
-    """.tf/.hats <SteamID> -- Shows items waiting to be received in TF2."""
+    """.tf/.hats <SteamID> -- Shows items waiting to be received in TF2"""
 
     if inp.isdigit():
         link = 'profiles'

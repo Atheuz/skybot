@@ -38,8 +38,8 @@ def format_quote(q, num, n_quotes):
 @hook.command('q')
 @hook.command
 def quote(inp, nick='', chan='', db=None):
-    ".q/.quote [#chan] [nick] [#n]/.quote add <nick> <msg> -- gets " \
-        "random or [#n]th quote by <nick> or from <#chan>/adds quote"
+    """.q/.quote [#chan] [nick] [#n]/.quote add <nick> <msg> -- gets """ \
+    """random or [#n]th quote by <nick> or from <#chan>/adds quote"""
 
     db.execute("create table if not exists quote"
         "(chan, nick, add_nick, msg, time real, deleted default 0, "

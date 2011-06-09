@@ -1,5 +1,7 @@
-'''brainfuck interpreter adapted from (public domain) code at
-http://brainfuck.sourceforge.net/brain.py'''
+"""
+brainfuck interpreter adapted from (public domain) code at
+http://brainfuck.sourceforge.net/brain.py
+"""
 
 import re
 import random
@@ -13,7 +15,7 @@ MAX_STEPS = 1000000
 
 @hook.command
 def bf(inp):
-    ".bf <prog> -- executes brainfuck program <prog>"""
+    """.bf <prog> -- executes brainfuck program <prog>"""
 
     program = re.sub('[^][<>+-.,]', '', inp)
 
