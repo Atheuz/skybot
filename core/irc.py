@@ -26,7 +26,7 @@ def censor(text):
 
 
 class crlf_tcp(object):
-    "Handles tcp connections that consist of utf-8 lines ending with crlf"
+    """Handles tcp connections that consist of utf-8 lines ending with crlf"""
 
     def __init__(self, host, port, timeout=300):
         self.ibuffer = ""
@@ -93,7 +93,7 @@ class crlf_tcp(object):
 
 
 class crlf_ssl_tcp(crlf_tcp):
-    "Handles ssl tcp connetions that consist of utf-8 lines ending with crlf"
+    """Handles ssl tcp connetions that consist of utf-8 lines ending with crlf"""
     def __init__(self, host, port, ignore_cert_errors, timeout=300):
         self.ignore_cert_errors = ignore_cert_errors
         crlf_tcp.__init__(self, host, port, timeout)
@@ -122,7 +122,7 @@ irc_param_ref = re.compile(r'(?:^|(?<= ))(:.*|[^ ]+)').findall
 
 
 class IRC(object):
-    "handles the IRC protocol"
+    """handles the IRC protocol"""
     #see the docs/ folder for more information on the protocol
     def __init__(self, server, nick, port=6667, channels=[], conf={}):
         self.channels = channels

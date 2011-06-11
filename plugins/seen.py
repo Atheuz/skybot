@@ -1,4 +1,4 @@
-" seen.py: written by sklnd in about two beers July 2009"
+# seen.py: written by sklnd in about two beers July 2009
 
 import time
 
@@ -6,7 +6,7 @@ from util import hook, timesince
 
 
 def db_init(db):
-    "check to see that our db has the the seen table and return a connection."
+    """check to see that our db has the the seen table and return a connection"""
     db.execute("create table if not exists seen(name, time, quote, chan, "
                  "primary key(name, chan))")
     db.commit()
@@ -24,7 +24,7 @@ def seeninput(paraml, input=None, db=None, bot=None):
 
 @hook.command
 def seen(inp, nick='', chan='', db=None, input=None):
-    ".seen <nick> -- Tell when a nickname was last in active in irc"
+    """.seen <nick> -- Tell when <nick> was last in active in irc"""
 
     if input.conn.nick.lower() == inp.lower():
         # user is looking for us, being a smartass

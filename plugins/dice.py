@@ -1,7 +1,6 @@
-"""
-dice.py: written by Scaevolus 2008, updated 2009
-simulates dicerolls
-"""
+# dice.py: written by Scaevolus 2008, updated 2009
+# simulates dicerolls
+
 import re
 import random
 
@@ -16,7 +15,7 @@ split_re = re.compile(r'([\d+-]*)d?(F|\d*)', re.I)
 
 
 def nrolls(count, n):
-    "roll an n-sided die count times"
+    """roll an n-sided die count times"""
     if n == "F":
         return [random.randint(-1, 1) for x in xrange(min(count, 100))]
     if n < 2:  # it's a coin
@@ -36,8 +35,8 @@ def nrolls(count, n):
 #@hook.regex(valid_diceroll, re.I)
 @hook.command
 def dice(inp):
-    ".dice <diceroll> -- simulates dicerolls, e.g. .dice 2d20-d5+4 roll 2 " \
-        "D20s, subtract 1D5, add 4"
+    """.dice <diceroll> -- simulates dicerolls, e.g. .dice 2d20-d5+4 roll 2 """ \
+    """D20s, subtract 1D5, add 4"""
 
     try:  # if inp is a re.match object...
         (inp, desc) = inp.groups()

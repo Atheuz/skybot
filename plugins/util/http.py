@@ -1,4 +1,6 @@
-# convenience wrapper for urllib2 & friends
+"""
+convenience wrapper for urllib2 & friends
+"""
 
 import cookielib
 import json

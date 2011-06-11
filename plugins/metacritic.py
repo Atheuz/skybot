@@ -8,8 +8,8 @@ from util import hook, http
 
 @hook.command('mc')
 def metacritic(inp):
-    '.mc [all|movie|tv|album|x360|ps3|pc|ds|wii] <title> -- gets rating for'\
-    ' <title> from metacritic on the specified medium'
+    """.mc [all|movie|tv|album|x360|ps3|pc|ds|wii] <title> -- gets rating for """ \
+    """<title> from metacritic on the specified medium"""
 
     # if the results suck, it's metacritic's fault
 
@@ -40,7 +40,8 @@ def metacritic(inp):
     except HTTPError:
         return 'error fetching results'
 
-    ''' result format:
+    """
+    result format:
     -- game result, with score
     -- subsequent results are the same structure, without first_result class
     <li class="result first_result">
@@ -68,7 +69,7 @@ def metacritic(inp):
     -- if it doesn't have a score, there is no div.basic_score
     -- the <div class="result_type"> changes content for non-games:
     <div class="result_type"><strong>Movie</strong></div>
-    '''
+    """
 
     # get the proper result element we want to pull data from
 

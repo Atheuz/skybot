@@ -4,7 +4,7 @@ from pycparser.cdecl import explain_c_declaration
 
 @hook.command
 def explain(inp):
-    ".explain <c expression> -- gives an explanation of C expression"
+    """.explain <c expression> -- gives an explanation of C expression"""
 
     inp = inp.encode('utf8', 'ignore')
 

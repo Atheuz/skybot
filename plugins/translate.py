@@ -58,9 +58,9 @@ def match_language(fragment):
 
 @hook.command
 def translate(inp):
-    '.translate [source language [target language]] <sentence> -- translates' \
-    ' <sentence> from source language (default autodetect) to target' \
-    ' language (default English) using Google Translate'
+    """.translate [source language [target language]] <sentence> -- translates """ \
+    """<sentence> from source language (default autodetect) to target """ \
+    """language (default English) using Google Translate"""
 
     args = inp.split(' ', 2)
 
@@ -95,7 +95,7 @@ def babel_gen(inp):
 
 @hook.command
 def babel(inp):
-    ".babel <sentence> -- translates <sentence> through multiple languages"
+    """.babel <sentence> -- translates <sentence> through multiple languages"""
 
     try:
         return list(babel_gen(inp))[-1][2]
@@ -105,7 +105,7 @@ def babel(inp):
 
 @hook.command
 def babelext(inp):
-    ".babelext <sentence> -- like .babel, but with more detailed output"
+    """.babelext <sentence> -- like .babel, but with more detailed output"""
 
     try:
         babels = list(babel_gen(inp))

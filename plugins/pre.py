@@ -1,11 +1,12 @@
 # searches scene releases using orlydb
 
+
 from util import hook, http
 
 
 @hook.command
 def predb(inp):
-    '.predb <query> -- searches scene releases using orlydb.com'
+    """.predb <query> -- searches scene releases using orlydb.com"""
 
     try:
         h = http.get_html("http://orlydb.com/", q=inp)
@@ -28,5 +29,5 @@ def predb(inp):
         size = ' :: ' + size[0].split()[0]
     else:
         size = ''
- 
+
     return '%s - %s - %s%s' % (date, section, name, size)

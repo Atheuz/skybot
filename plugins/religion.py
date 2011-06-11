@@ -4,7 +4,7 @@ from util import hook, http
 @hook.command('god')
 @hook.command
 def bible(inp):
-    ".bible <passage> -- gets <passage> from the Bible (ESV)"
+    """.bible <passage> -- gets <passage> from the Bible (ESV)"""
 
     base_url = ('http://www.esvapi.org/v2/rest/passageQuery?key=IP&'
         'output-format=plain-text&include-heading-horizontal-lines&'
@@ -26,7 +26,7 @@ def bible(inp):
 @hook.command('allah')
 @hook.command
 def koran(inp):  # Koran look-up plugin by Ghetto Wizard
-    ".koran <chapter.verse> -- gets <chapter.verse> from the Koran"
+    """.koran <chapter.verse> -- gets <chapter.verse> from the Koran"""
 
     url = 'http://quod.lib.umich.edu/cgi/k/koran/koran-idx?type=simple'
 

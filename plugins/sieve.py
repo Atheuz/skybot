@@ -12,6 +12,9 @@ def sieve_suite(bot, input, func, kind, args):
     if kind == "command":
         if input.trigger in bot.config.get('disabled_commands', []):
             return None
+        if bot.config.get('enabled_commands_propagate'):
+            if input.trigger not in bot.config.get('enabled_commands', []):
+                return None
 
         ignored = bot.config.get('ignored', [])
         if input.host in ignored or input.nick in ignored:
