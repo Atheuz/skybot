@@ -89,7 +89,7 @@ def define(inp):
 @hook.command('e')
 @hook.command
 def etymology(inp):
-    """.e/.etymology <word> -- Retrieves the etymology of chosen word"""
+    """.e/.etymology <word> -- Retrieves the etymology of chosen <word>"""
 
     url = 'http://www.etymonline.com/index.php'
 

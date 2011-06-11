@@ -5,13 +5,13 @@ from util import hook
 
 @hook.command
 def md5(inp):
-    """.md5 <text> -- returns MD5 hash of text"""
+    """.md5 <text> -- returns MD5 hash of <text>"""
     return hashlib.md5(inp).hexdigest()
 
 
 @hook.command
 def sha1(inp):
-    """.md5 <text> -- returns SHA1 hash of text"""
+    """.md5 <text> -- returns SHA1 hash of <text>"""
     return hashlib.sha1(inp).hexdigest()
 
 

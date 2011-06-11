@@ -20,7 +20,7 @@ def get_memory(db, chan, word):
 
 @hook.command
 def remember(inp, nick='', chan='', db=None):
-    """.remember <word> [+]<data> -- maps word to data in the memory"""
+    """.remember <word> [+]<data> -- maps <word> to data in the memory"""
     db_init(db)
 
     append = False
@@ -55,7 +55,7 @@ def remember(inp, nick='', chan='', db=None):
 
 @hook.command
 def forget(inp, chan='', db=None):
-    """.forget <word> -- forgets the mapping that word had"""
+    """.forget <word> -- forgets the mapping that <word> had"""
 
     db_init(db)
     data = get_memory(db, chan, inp)
@@ -74,7 +74,7 @@ def forget(inp, chan='', db=None):
 
 @hook.regex(r'^\? ?(.+)')
 def question(inp, chan='', say=None, db=None):
-    """?<word> -- shows what data is associated with word"""
+    """?<word> -- shows what data is associated with <word>"""
     db_init(db)
 
     data = get_memory(db, chan, inp.group(1).strip())
