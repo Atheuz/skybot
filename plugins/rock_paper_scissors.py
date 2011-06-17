@@ -1,5 +1,6 @@
 # rock paper scissors game plugin for Skybot
 # Written by GhettoWizard(2011)
+# http://www.smbc-comics.com/index.php?db=comics&id=2131#comic ??
 
 import re
 from random import choice
