@@ -9,7 +9,7 @@ from util import hook
 
 
 def dotnetpad(lang, code, timeout=30):
-    """Posts a provided snippet of code in a provided langugage to dotnetpad.net"""
+    """Posts a provided snippet of code in a provided lanuage to dotnetpad.net"""
 
     code = code.encode('utf8')
     params = urllib.urlencode({'language': lang, 'code': code})
@@ -45,14 +45,14 @@ def dotnetpad(lang, code, timeout=30):
 
 @hook.command
 def fs(inp):
-    """.fs -- post a F# code snippet to dotnetpad.net and print the results"""
+    """.fs <snippet> -- post a F# <snippet> to dotnetpad.net and return the results"""
 
     return dotnetpad('fsharp', inp)
 
 
 @hook.command
 def cs(snippet):
-    """.cs -- post a C# code snippet to dotnetpad.net and print the results"""
+    """.cs <snippet> -- post C# <snippet> to dotnetpad.net and return the results"""
 
     file_template = ('using System; '
                      'using System.Linq; '

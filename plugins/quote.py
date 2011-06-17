@@ -6,27 +6,37 @@ from util import hook
 
 
 def add_quote(db, chan, nick, add_nick, msg):
-    db.execute('''insert or fail into quote (chan, nick, add_nick,
-                    msg, time) values(?,?,?,?,?)''',
-                    (chan, nick, add_nick, msg, time.time()))
+    db.execute("""INSERT or FAIL into quote (
+               chan,
+               nick,
+               add_nick,
+               msg,
+               time) values(?,?,?,?,?)""",
+               (chan, nick, add_nick, msg, time.time()))
     db.commit()
 
 
 def del_quote(db, chan, nick, add_nick, msg):
-    db.execute('''update quote set deleted = 1 where
-                  chan=? and lower(nick)=lower(?) and msg=msg''')
+    db.execute("""UPDATE quote SET
+               deleted = 1
+               WHERE chan=? AND lower(nick)=lower(?) AND msg=msg""")
     db.commit()
 
 
 def get_quotes_by_nick(db, chan, nick):
-    return db.execute("select time, nick, msg from quote where deleted!=1 "
-            "and chan=? and lower(nick)=lower(?) order by time",
-            (chan, nick)).fetchall()
+    return db.execute("""SELECT time,
+                      nick,
+                      msg FROM quote WHERE deleted!=1
+                      AND chan=? AND lower(nick)=lower(?) ORDER by TIME""",
+                      (chan, nick)).fetchall()
 
 
 def get_quotes_by_chan(db, chan):
-    return db.execute("select time, nick, msg from quote where deleted!=1 "
-           "and chan=? order by time", (chan,)).fetchall()
+    return db.execute("""SELECT time,
+                      nick,
+                      msg FROM quote WHERE deleted!=1
+                      AND chan=? ORDER by TIME""",
+                      (chan,)).fetchall()
 
 
 def format_quote(q, num, n_quotes):
@@ -41,9 +51,14 @@ def quote(inp, nick='', chan='', db=None):
     """.q/.quote [#chan] [nick] [#n]/.quote add <nick> <msg> -- gets """ \
     """random or [#n]th quote by <nick> or from <#chan>/adds quote"""
 
-    db.execute("create table if not exists quote"
-        "(chan, nick, add_nick, msg, time real, deleted default 0, "
-        "primary key (chan, nick, msg))")
+    db.execute("""CREATE TABLE if not exists quote(
+               chan,
+               nick,
+               add_nick,
+               msg,
+               time REAL,
+               deleted DEFAULT 0,
+               PRIMARY KEY (chan, nick, msg))""")
     db.commit()
 
     add = re.match(r"add[^\w@]+(\S+?)>?\s+(.*)", inp, re.I)
