@@ -2,6 +2,13 @@
 # Written by GhettoWizard(2011)
 # http://www.smbc-comics.com/index.php?db=comics&id=2131#comic ??
 
+# "2 people threw rock, 3 threw paper, 5 threw scissors"
+# so everyone who threw rock ties once, loses 3 times, wins 5 times, net +2
+# and then paper players would get -2, scissors -1
+
+# I would also like the option of specifying a particular person to throw against, which would be done outside of this pool
+# so that someone could have a 1v1 without interruption from others
+
 import re
 from random import choice
 
