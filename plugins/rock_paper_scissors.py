@@ -24,25 +24,10 @@ def tie(db, nick):
                total = total+1 WHERE nick=nick""")
     db.commit()
 
-def get_stats(db, nick):
-    return db.execute("""SELECT * FROM rockpaperscissors WHERE nick=nick""").fetchall()
-
 @hook.command('rps')
 @hook.command()
 def rockpaperscissors(inp, nick='', db=None):
     """.rps/.rockpaperscissors <hand>/<stats> -- plays rock-paper-scissors with you or returns stats for all plays"""
-
-    print nick
-
-    stats = re.match('stats', inp)
-    if stats:
-        out = get_stats(db, nick)
-
-        if not out:
-            return "no plays"
-        else:
-            return "you've won %s times, lost %s times, tied %s times and" \
-                   " played a total of %s times" % (out[0][1:])
 
     db.execute("""CREATE TABLE if not exists rockpaperscissors(
                nick TEXT PRIMARY KEY,
@@ -50,6 +35,16 @@ def rockpaperscissors(inp, nick='', db=None):
                losses INTEGER,
                ties INTEGER,
                total INTEGER)""")
+
+    stats = re.match('stats', inp)
+    if stats:
+        out = db.execute("""SELECT * FROM rockpaperscissors WHERE nick=nick""").fetchall()
+
+        if not out:
+            return "no plays"
+        else:
+            return "you've won %s times, lost %s times, tied %s times and" \
+                   " played a total of %s times" % (out[0][1:])
 
     hands = ['rock', 'paper', 'scissors']
     hand_beats = {'rock': 'scissors', 'scissors': 'paper', 'paper': 'rock'}
