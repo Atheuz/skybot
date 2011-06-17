@@ -9,19 +9,19 @@ from util import hook
 def win(db, nick):
     db.execute("""UPDATE rockpaperscissors SET
                wins = wins+1,
-               total = total+1 WHERE nick=nick""")
+               total = total+1 WHERE nick=?""", (nick.lower(),))
     db.commit()
 
 def loss(db, nick):
     db.execute("""UPDATE rockpaperscissors SET
                losses = losses+1,
-               total = total+1 WHERE nick=nick""")
+               total = total+1 WHERE nick=?""", (nick.lower(),))
     db.commit()
 
 def tie(db, nick):
     db.execute("""UPDATE rockpaperscissors SET
                ties = ties+1,
-               total = total+1 WHERE nick=nick""")
+               total = total+1 WHERE nick=?""", (nick.lower(),))
     db.commit()
 
 @hook.command('rps')
@@ -38,7 +38,8 @@ def rockpaperscissors(inp, nick='', db=None):
 
     stats = re.match('stats', inp)
     if stats:
-        out = db.execute("""SELECT * FROM rockpaperscissors WHERE nick=nick""").fetchall()
+        out = db.execute("""SELECT * FROM rockpaperscissors WHERE nick=?""",
+                (nick.lower(),)).fetchall()
 
         if not out:
             return "no plays"
