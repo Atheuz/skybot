@@ -1,6 +1,7 @@
 # Karma plugin for Skybot
 # Written by GhettoWizard(2011)
 
+import time
 import re
 
 from util import hook
@@ -17,9 +18,33 @@ def down(db, nick_vote):
                total_karma = total_karma+1 WHERE nick_vote=?""", (nick_vote.lower(),))
     db.commit()
 
+def allowed(db, nick, nick_vote):
+    check = db.execute("""SELECT epoch FROM karma_voters WHERE voter=? AND votee=?""",
+            (nick.lower(), nick_vote.lower())).fetchone()
+
+    if check:
+        check = check[0]
+        print time.time() - check
+        if time.time() - check >= 3600:
+            db.execute("""INSERT OR REPLACE INTO karma_voters(
+                       voter,
+                       votee,
+                       epoch) values(?,?,?)""", (nick.lower(), nick_vote.lower(), time.time()))
+            db.commit()
+            return True, 0
+        else:
+            return False, (3600-(time.time() - check))/60
+    else:
+        db.execute("""INSERT OR REPLACE INTO karma_voters(
+                   voter,
+                   votee,
+                   epoch) values(?,?,?)""", (nick.lower(), nick_vote.lower(), time.time()))
+        db.commit()
+        return True, 0
+
 @hook.command('k')
 @hook.command
-def karma(inp, chan='', db=None):
+def karma(inp, nick='', chan='', db=None):
     """.k/.karma <up>/<down> <nick_vote> / <karma> <nick_vote> -- either ups or downs a nick's karma or gets karma stats for nick"""
 
     db.execute("""CREATE TABLE if not exists karma(
@@ -27,6 +52,12 @@ def karma(inp, chan='', db=None):
                up_karma INTEGER,
                down_karma INTEGER,
                total_karma INTEGER)""")
+
+    db.execute("""CREATE TABLE if not exists karma_voters(
+               voter TEXT,
+               votee TEXT,
+               epoch FLOAT,
+               PRIMARY KEY(voter, votee))""")
 
     if not chan.startswith('#'):
         return
@@ -46,20 +77,25 @@ def karma(inp, chan='', db=None):
     vote = re.match('(up|down) (.+)', inp)
     if vote:
         nick_vote = vote.group(2)
-        if vote.group(1) == 'up':
-            db.execute("""INSERT or IGNORE INTO karma(
-                   nick_vote,
-                   up_karma,
-                   down_karma,
-                   total_karma) values(?,?,?,?)""", (nick_vote.lower(),0,0,0))
-            up(db, nick_vote)
+        vote_allowed, time_since = allowed(db, nick, nick_vote)
+        if vote_allowed:
+            if vote.group(1) == 'up':
+                db.execute("""INSERT or IGNORE INTO karma(
+                    nick_vote,
+                    up_karma,
+                    down_karma,
+                    total_karma) values(?,?,?,?)""", (nick_vote.lower(),0,0,0))
+                up(db, nick_vote)
 
-        if vote.group(1) == 'down':
-            db.execute("""INSERT or IGNORE INTO karma(
-                   nick_vote,
-                   up_karma,
-                   down_karma,
-                   total_karma) values(?,?,?,?)""", (nick_vote.lower(),0,0,0))
-            down(db, nick_vote)
+            if vote.group(1) == 'down':
+                db.execute("""INSERT or IGNORE INTO karma(
+                    nick_vote,
+                    up_karma,
+                    down_karma,
+                    total_karma) values(?,?,?,?)""", (nick_vote.lower(),0,0,0))
+                down(db, nick_vote)
+        else:
+            return "you can't vote for that person right now, you need to wait" \
+                   " %.1f minutes" % time_since
 
     return
