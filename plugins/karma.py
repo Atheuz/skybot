@@ -4,7 +4,7 @@
 import time
 import re
 
-from util import hook
+from util import hook, timesince
 
 def up(db, nick_vote):
     db.execute("""UPDATE karma SET
@@ -24,7 +24,6 @@ def allowed(db, nick, nick_vote):
 
     if check:
         check = check[0]
-        print time.time() - check
         if time.time() - check >= 3600:
             db.execute("""INSERT OR REPLACE INTO karma_voters(
                        voter,
@@ -33,7 +32,7 @@ def allowed(db, nick, nick_vote):
             db.commit()
             return True, 0
         else:
-            return False, (3600-(time.time() - check))/60
+            return False, timesince.timeuntil(check, now=time.time()-3600)
     else:
         db.execute("""INSERT OR REPLACE INTO karma_voters(
                    voter,
@@ -45,7 +44,7 @@ def allowed(db, nick, nick_vote):
 @hook.command('k')
 @hook.command
 def karma(inp, nick='', chan='', db=None):
-    """.k/.karma <up>/<down> <nick_vote> / <karma> <nick_vote> -- either ups or downs a nick's karma or gets karma stats for nick"""
+    """.k/.karma <nick><++>/<--> / karma <nick> -- upvotes or downvotes a <nick>'s karma or returns stats for <nick>"""
 
     db.execute("""CREATE TABLE if not exists karma(
                nick_vote TEXT PRIMARY KEY,
@@ -74,12 +73,12 @@ def karma(inp, nick='', chan='', db=None):
             out = out[0]
             return "%s has %s karma" % (nick_vote, out[1]-out[2])
 
-    vote = re.match('(up|down) (.+)', inp)
+    vote = re.match('(.+)(\+\+|\-\-)', inp)
     if vote:
-        nick_vote = vote.group(2)
+        nick_vote = vote.group(1).strip()
         vote_allowed, time_since = allowed(db, nick, nick_vote)
         if vote_allowed:
-            if vote.group(1) == 'up':
+            if vote.group(2) == '++':
                 db.execute("""INSERT or IGNORE INTO karma(
                     nick_vote,
                     up_karma,
@@ -87,7 +86,7 @@ def karma(inp, nick='', chan='', db=None):
                     total_karma) values(?,?,?,?)""", (nick_vote.lower(),0,0,0))
                 up(db, nick_vote)
 
-            if vote.group(1) == 'down':
+            if vote.group(1) == '--':
                 db.execute("""INSERT or IGNORE INTO karma(
                     nick_vote,
                     up_karma,
@@ -95,7 +94,6 @@ def karma(inp, nick='', chan='', db=None):
                     total_karma) values(?,?,?,?)""", (nick_vote.lower(),0,0,0))
                 down(db, nick_vote)
         else:
-            return "you can't vote for that person right now, you need to wait" \
-                   " %.1f minutes" % time_since
+            return "you can't vote for that person right now, you need to wait %s" % time_since
 
     return

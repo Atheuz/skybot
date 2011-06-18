@@ -58,6 +58,8 @@ def timesince(d, now=None):
     # Convert datetime.date to datetime.datetime for comparison.
     if not isinstance(d, datetime.datetime):
         d = datetime.datetime(d.year, d.month, d.day)
+    if now and isinstance(now, int) or isinstance(now, float):
+        now = datetime.datetime.fromtimestamp(now)
     if now and not isinstance(now, datetime.datetime):
         now = datetime.datetime(now.year, now.month, now.day)
 
