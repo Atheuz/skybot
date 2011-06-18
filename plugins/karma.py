@@ -47,7 +47,7 @@ def allowed(db, nick, nick_vote):
         return True, 0
 
 
-karma_re = ('(.+)(\+\+|\-\-)', re.I)
+karma_re = ('(.+)(\+\+|\-\-)$', re.I)
 
 @hook.regex(*karma_re)
 def karma_add(match, nick='', chan='', db=None):
