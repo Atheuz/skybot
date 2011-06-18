@@ -73,7 +73,7 @@ def karma_add(match, nick='', chan='', db=None):
         else:
             return
     else:
-        return "you can't vote for that '%s' right now, you need to wait %s" % (nick_vote, time_since)
+        return "you can't vote for '%s' right now, you need to wait %s" % (nick_vote, time_since)
 
     return
 
