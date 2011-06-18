@@ -76,6 +76,8 @@ def karma(inp, nick='', chan='', db=None):
     vote = re.match('(.+)(\+\+|\-\-)', inp)
     if vote:
         nick_vote = vote.group(1).strip()
+        if nick == nick_vote:
+            return
         vote_allowed, time_since = allowed(db, nick, nick_vote)
         if vote_allowed:
             if vote.group(2) == '++':
