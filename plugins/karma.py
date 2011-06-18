@@ -88,7 +88,7 @@ def karma(inp, nick='', chan='', db=None):
                     total_karma) values(?,?,?,?)""", (nick_vote.lower(),0,0,0))
                 up(db, nick_vote)
 
-            if vote.group(1) == '--':
+            if vote.group(2) == '--':
                 db.execute("""INSERT or IGNORE INTO karma(
                     nick_vote,
                     up_karma,
