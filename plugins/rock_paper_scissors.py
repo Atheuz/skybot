@@ -33,7 +33,7 @@ def tie(db, nick):
     db.commit()
 
 @hook.command('rps')
-@hook.command()
+@hook.command
 def rockpaperscissors(inp, nick='', db=None):
     """.rps/.rockpaperscissors <hand>/<stats> -- plays rock-paper-scissors with you or returns stats for all plays"""
 
