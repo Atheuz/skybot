@@ -10,8 +10,10 @@ def predb(inp):
 
     try:
         h = http.get_html("http://orlydb.com/", q=inp)
-    except HTTPError:
+    except http.HTTPError:
         return 'orlydb seems to be down'
+    except http.URLError:
+        return 'orlydb timed out'
 
     results = h.xpath("//div[@id='releases']/div/span[@class='release']/..")
 
