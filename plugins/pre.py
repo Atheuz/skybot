@@ -13,7 +13,7 @@ def predb(inp):
     except http.HTTPError:
         return 'orlydb seems to be down'
     except http.URLError:
-        return 'orlydb timed out'
+        return 'something went wrong'
 
     results = h.xpath("//div[@id='releases']/div/span[@class='release']/..")
 
