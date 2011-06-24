@@ -22,10 +22,12 @@ def down(db, nick_vote):
 
 
 def allowed(db, nick, nick_vote):
+    time_restriction = 3600
+    db.execute("""DELETE FROM karma_voters WHERE ? - epoch >= 3600""",
+            (time.time(),))
+    db.commit()
     check = db.execute("""SELECT epoch FROM karma_voters WHERE voter=? AND votee=?""",
             (nick.lower(), nick_vote.lower())).fetchone()
-
-    time_restriction = 3600
 
     if check:
         check = check[0]
@@ -35,18 +37,22 @@ def allowed(db, nick, nick_vote):
                        votee,
                        epoch) values(?,?,?)""", (nick.lower(), nick_vote.lower(), time.time()))
             db.commit()
-            return True, 0
+            return True#, 0
         else:
-            return False, timesince.timeuntil(check, now=time.time()-time_restriction)
+            return False#, timesince.timeuntil(check, now=time.time()-time_restriction)
     else:
         db.execute("""INSERT OR REPLACE INTO karma_voters(
                    voter,
                    votee,
                    epoch) values(?,?,?)""", (nick.lower(), nick_vote.lower(), time.time()))
         db.commit()
-        return True, 0
+        return True#, 0
 
 
+# TODO Make this work on multiple matches in a string, right now it'll only
+# work on one match. Scaevolus might have to change the hook function to work
+# with findall, as search seems limited.
+# karma_re = ('((\S+)(\+\+|\-\-))+', re.I)
 karma_re = ('(.+)(\+\+|\-\-)$', re.I)
 
 @hook.regex(*karma_re)
@@ -54,7 +60,7 @@ def karma_add(match, nick='', chan='', db=None):
     nick_vote = match.group(1).strip()
     if nick.lower() == nick_vote.lower():
         return
-    vote_allowed, time_since = allowed(db, nick, nick_vote)
+    vote_allowed = allowed(db, nick, nick_vote)
     if vote_allowed:
         if match.group(2) == '++':
             db.execute("""INSERT or IGNORE INTO karma(
@@ -73,7 +79,7 @@ def karma_add(match, nick='', chan='', db=None):
         else:
             return
     else:
-        return "you can't vote for '%s' right now, you need to wait %s" % (nick_vote, time_since)
+        return
 
     return
 
