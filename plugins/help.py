@@ -39,3 +39,5 @@ def help(inp, bot=None, pm=None):
     else:
         if inp in commands:
             pm(commands[inp].__doc__)
+        else:
+            pm("no command available called %s" % inp)
