@@ -37,9 +37,10 @@ def get_video_description(vid_id):
         out += '%dm ' % (length / 60 % 60)
     out += "%ds\x02" % (length % 60)
 
-    if 'rating' in j:
-        out += ' - rated \x02%.2f/5.0\x02 (%d)' % (j['rating'],
-                j['ratingCount'])
+    if 'ratingCount' in j and 'likeCount' in j:
+        likes = int(j['likeCount'])
+        dislikes = int(j['ratingCount']) - int(j['likeCount'])
+        out += ' - liked \x02%s\x02 times, disliked \x02%s\x02 times' % (locale.format('%d',likes,1), locale.format('%d',dislikes,1))
 
     if 'viewCount' in j:
         out += ' - \x02%s\x02 views' % locale.format('%d',
