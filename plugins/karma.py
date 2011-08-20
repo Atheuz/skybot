@@ -10,23 +10,28 @@ from util import hook, timesince
 def up(db, nick_vote):
     db.execute("""UPDATE karma SET
                up_karma = up_karma+1,
-               total_karma = total_karma+1 WHERE nick_vote=?""", (nick_vote.lower(),))
+               total_karma = total_karma+1 WHERE nick_vote=?""",
+               (nick_vote.lower(),))
     db.commit()
 
 
 def down(db, nick_vote):
     db.execute("""UPDATE karma SET
                down_karma = down_karma+1,
-               total_karma = total_karma+1 WHERE nick_vote=?""", (nick_vote.lower(),))
+               total_karma = total_karma+1 WHERE nick_vote=?""",
+               (nick_vote.lower(),))
     db.commit()
 
 
 def allowed(db, nick, nick_vote):
     time_restriction = 3600
-    db.execute("""DELETE FROM karma_voters WHERE ? - epoch >= 3600""",
+    db.execute("""DELETE FROM karma_voters
+               WHERE ? - epoch >= 3600""",
             (time.time(),))
     db.commit()
-    check = db.execute("""SELECT epoch FROM karma_voters WHERE voter=? AND votee=?""",
+    check = db.execute("""SELECT epoch
+                       FROM karma_voters
+                       WHERE voter=? AND votee=?""",
             (nick.lower(), nick_vote.lower())).fetchone()
 
     if check:
@@ -35,18 +40,20 @@ def allowed(db, nick, nick_vote):
             db.execute("""INSERT OR REPLACE INTO karma_voters(
                        voter,
                        votee,
-                       epoch) values(?,?,?)""", (nick.lower(), nick_vote.lower(), time.time()))
+                       epoch) values(?,?,?)""",
+                       (nick.lower(), nick_vote.lower(), time.time()))
             db.commit()
-            return True#, 0
+            return True
         else:
-            return False#, timesince.timeuntil(check, now=time.time()-time_restriction)
+            return False
     else:
         db.execute("""INSERT OR REPLACE INTO karma_voters(
                    voter,
                    votee,
-                   epoch) values(?,?,?)""", (nick.lower(), nick_vote.lower(), time.time()))
+                   epoch) values(?,?,?)""",
+                   (nick.lower(), nick_vote.lower(), time.time()))
         db.commit()
-        return True#, 0
+        return True
 
 
 # TODO Make this work on multiple matches in a string, right now it'll only
@@ -54,6 +61,7 @@ def allowed(db, nick, nick_vote):
 # with findall, as search seems limited.
 # karma_re = ('((\S+)(\+\+|\-\-))+', re.I)
 karma_re = ('(.+)(\+\+|\-\-)$', re.I)
+
 
 @hook.regex(*karma_re)
 def karma_add(match, nick='', chan='', db=None):
@@ -67,14 +75,16 @@ def karma_add(match, nick='', chan='', db=None):
                        nick_vote,
                        up_karma,
                        down_karma,
-                       total_karma) values(?,?,?,?)""", (nick_vote.lower(),0,0,0))
+                       total_karma) values(?,?,?,?)""",
+                       (nick_vote.lower(), 0, 0, 0))
             up(db, nick_vote)
         if match.group(2) == '--':
             db.execute("""INSERT or IGNORE INTO karma(
                        nick_vote,
                        up_karma,
                        down_karma,
-                       total_karma) values(?,?,?,?)""", (nick_vote.lower(),0,0,0))
+                       total_karma) values(?,?,?,?)""",
+                       (nick_vote.lower(), 0, 0, 0))
             down(db, nick_vote)
         else:
             return
@@ -112,6 +122,6 @@ def karma(inp, nick='', chan='', db=None):
         return "no karma"
     else:
         out = out[0]
-        return "'%s' has %s karma" % (nick_vote, out[1]-out[2])
+        return "'%s' has %s karma" % (nick_vote, out[1] - out[2])
 
     return
